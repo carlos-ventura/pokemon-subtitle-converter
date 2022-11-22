@@ -65,7 +65,7 @@ class DataParser():
         self.__save_file(c.TRANSLATION_DATA)
 
     def __gather_all_data(self, dfs: list[pd.DataFrame], update: bool = False):
-        self.load_json(c.TRANSLATION_DATA) if update else {}
+        self.load_file(c.TRANSLATION_DATA) if update else {}
         all_dict_data = [self.__convert_to_dictionary(df) for df in dfs]
         for poke_dict in all_dict_data:
             self.translated_data |= poke_dict
