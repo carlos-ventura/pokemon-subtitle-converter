@@ -257,8 +257,6 @@
     "Kabutops": "Kabutops",
     "Ptera": "Aerodactyl",
     "Freezer": "Articuno",
-    "Thunder": "Zapdos",
-    "Fire": "Moltres",
     "Miniryu": "Dratini",
     "Hakuryu": "Dragonair",
     "Kairyu": "Dragonite",
@@ -1713,5 +1711,6 @@
     "Guardi": "Growlithe",
     "Gouriki": "Machoke",
     "Pixie": "Clefairy",
-    "Parlsen": "Cloyster"
+    "Parlsen": "Cloyster",
+    "Nusshi": "Exeggutor"
 }
