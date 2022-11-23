@@ -1,1 +1,2 @@
 TRANSLATION_DATA = "translated-data"
+DEFAULT_TRACK_NUMBER = 2
