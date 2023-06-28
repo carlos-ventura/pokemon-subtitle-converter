@@ -6,11 +6,11 @@ class Translator():
         self._path = path
 
     def read_subtitles(self):
-        with open(self._path, 'r') as handle:
+        with open(self._path, 'r', encoding="utf-8") as handle:
             return handle.read()
 
     def write_subtitles(self, path: str, content: str):
-        with open(path, 'w') as handle:
+        with open(path, 'w', encoding="utf-8") as handle:
             handle.write(content)
 
     def translate_pokemon_names(self, content: str, translated_pokemons: dict):
