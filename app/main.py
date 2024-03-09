@@ -58,7 +58,7 @@ def read_files(videos_folder: str, track_number: int):
 def parse_arguments():
     parser = argparse.ArgumentParser(description=DESCRIPTION)
     parser.add_argument('-p', '--path', type=str, metavar='', help=PATH_HELP)
-    parser.add_argument('-a', '--add', type=str, metavar='', help=ADD_HELP)
+    parser.add_argument('-e', '--entries', type=str, metavar='', help=ENTRIES_HELP)
     parser.add_argument('-gs', '--generate-subs', type=str, metavar='', help=GENERATE_SUBS_HELP)
     parser.add_argument("-t", '--track', type=int, metavar='', help=TRACK_HELP)
     group = parser.add_mutually_exclusive_group()
@@ -79,7 +79,7 @@ if __name__ == '__main__':
         data_parser.update()
         print("[+] Update name list from the web")
     if add := args.add:
-        add_dicts = add_argument(add)
+        add_dicts = convert_str_to_dict(add)
         data_parser.add_entries(add_dicts)
         print(f"[+] Entry {add} added to the name list")
     if path := args.path:
