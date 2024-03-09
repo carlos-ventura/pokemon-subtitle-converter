@@ -1,5 +1,6 @@
 import argparse
 import os
+import time
 from pathlib import Path
 
 from action_handlers import convert_str_to_dict, generate_subs, translate_subs
@@ -20,6 +21,7 @@ def parse_arguments():
 
 
 if __name__ == '__main__':
+    start_time = time.time()
     args = parse_arguments()
 
     track_number = args.track or DEFAULT_TRACK_NUMBER
@@ -62,3 +64,5 @@ if __name__ == '__main__':
             print("[+] Single file input")
             translator.run()
             print(path)
+
+    print(f"\n[+] Time taken: {time.time() - start_time}s")
