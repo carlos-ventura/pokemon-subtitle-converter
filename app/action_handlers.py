@@ -27,6 +27,7 @@ def translate_subs(translator: Translator, videos_folder: str):
     for file in subs_filenames:
         _run_translator(translator, file)
 
+    # TODO Below line does not write to file for some reason
     # with ThreadPoolExecutor() as executor:
     #     executor.map(_run_translator, repeat(translator), subs_filenames)
 
