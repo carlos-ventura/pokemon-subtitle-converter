@@ -19,9 +19,8 @@ class Translator():
             return input_file.read()
 
     def _translate(self, content: str):
-        for key, value in self._translated_data.items():
-            content = re.sub(pattern=r'\b' + key + r'\b', repl=value, string=content, flags=re.IGNORECASE)
-        return content
+        pattern = re.compile('|'.join(r'\b' + key + r'\b' for key in self._translated_data.keys()), flags=re.IGNORECASE)
+        return pattern.sub(lambda match: self._translated_data[match.group(0).title()], content)
 
     def _write_subtitles(self, path: str, content: str):
         with open(path, 'w', encoding="utf-8") as output_file:
