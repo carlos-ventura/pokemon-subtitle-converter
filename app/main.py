@@ -11,12 +11,11 @@ from data_parser import DataParser
 from translator import Translator
 
 
-def add_argument(add):
-    all_entries = shlex.split(add)
+def convert_str_to_dict(entries: str):
     all_dicts = {}
-    for entry in all_entries:
-        new_entry = entry.split(":")
-        all_dicts |= {new_entry[0]: new_entry[1]}
+    for entry in entries.split('|'):
+        key, value = entry.split(':')
+        all_dicts[key.strip()] = value.strip()
     return all_dicts
 
 
