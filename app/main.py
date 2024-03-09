@@ -2,7 +2,6 @@ import argparse
 import glob
 import mimetypes
 import os
-import shlex
 import subprocess
 from pathlib import Path
 
@@ -73,10 +72,10 @@ if __name__ == '__main__':
     data_parser = DataParser()
     path_exists = Path(f'data/{TRANSLATION_FILENAME}.json').exists()
     if not path_exists:
-        data_parser.create()
+        data_parser.upsert(update=False)
         print("[+] Create name list")
     if args.update:
-        data_parser.update()
+        data_parser.upsert(update=True)
         print("[+] Update name list from the web")
     if add := args.add:
         add_dicts = convert_str_to_dict(add)
@@ -84,7 +83,7 @@ if __name__ == '__main__':
         print(f"[+] Entry {add} added to the name list")
     if path := args.path:
         if not args.update and path_exists:
-            data_parser.load_file(TRANSLATION_FILENAME)
+            data_parser.load()
         translated_data = data_parser.translated_data
         translator = Translator(translated_data, path)
         if os.path.isdir(path):
