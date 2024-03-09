@@ -6,7 +6,7 @@ import subprocess
 from pathlib import Path
 
 from constants import *
-from data_parser import DataParser
+from translations_generator import TranslationsGenerator
 from translator import Translator
 
 
@@ -69,22 +69,22 @@ if __name__ == '__main__':
     args = parse_arguments()
     track_number = args.track or DEFAULT_TRACK_NUMBER
     print(f"[+] Track number is {track_number}")
-    data_parser = DataParser()
+    translations_generator = TranslationsGenerator()
     path_exists = Path(f'data/{TRANSLATION_FILENAME}.json').exists()
     if not path_exists:
-        data_parser.upsert(update=False)
+        translations_generator.upsert(update=False)
         print("[+] Create name list")
     if args.update:
-        data_parser.upsert(update=True)
+        translations_generator.upsert(update=True)
         print("[+] Update name list from the web")
     if add := args.add:
         add_dicts = convert_str_to_dict(add)
-        data_parser.add_entries(add_dicts)
+        translations_generator.add_entries(add_dicts)
         print(f"[+] Entry {add} added to the name list")
     if path := args.path:
         if not args.update and path_exists:
-            data_parser.load()
-        translated_data = data_parser.translated_data
+            translations_generator.load()
+        translated_data = translations_generator.translated_data
         translator = Translator(translated_data, path)
         if os.path.isdir(path):
             print("[+] Folder input")

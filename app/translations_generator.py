@@ -5,7 +5,7 @@ import requests
 from constants import TRANSLATION_FILENAME
 
 
-class DataParser():
+class TranslationsGenerator():
 
     def __init__(self):
         self.translated_data = {}
