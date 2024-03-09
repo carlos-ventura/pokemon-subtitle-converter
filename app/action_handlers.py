@@ -4,6 +4,7 @@ import glob
 import mimetypes
 import os
 import subprocess
+from concurrent.futures import ThreadPoolExecutor
 from typing import TYPE_CHECKING
 
 from constants import *
@@ -22,9 +23,13 @@ def convert_str_to_dict(entries: str):
 
 def translate_subs(translator: Translator, videos_folder: str):
     subs_filenames = _get_filenames(videos_folder, video=False)
-    for file in subs_filenames:
-        print(f"[+] {file}")
-        translator.run(path=file)
+    with ThreadPoolExecutor() as executor:
+        executor.map(lambda file: _run_translator(translator, file), subs_filenames)
+
+
+def _run_translator(translator: Translator, file: str):
+    print(f"[+] {file}")
+    translator.run(path=file)
 
 
 def generate_subs(videos_folder: str, track_number: int):
