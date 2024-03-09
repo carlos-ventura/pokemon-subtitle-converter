@@ -25,22 +25,23 @@ if __name__ == '__main__':
     track_number = args.track or DEFAULT_TRACK_NUMBER
     print(f"[+] Track number is {track_number}")
 
-    translations = Translations()
-
     path_exists = Path(f'data/{TRANSLATION_FILENAME}.json').exists()
 
     if not path_exists:
         print("[+] Creating translations...")
+        translations = Translations()
         translations.upsert(update=False)
 
     if args.update:
         print("[+] Updating translations...")
+        translations = Translations()
         translations.upsert(update=True)
 
     if entries := args.entries:
         entry_dicts = convert_str_to_dict(entries)
         for key, value in entry_dicts:
             print(f"[+] Adding entry {key}:{value} translations...")
+        translations = Translations()
         translations.add_entries(entry_dicts)
 
     if videos_folder := args.generate_subs:
@@ -49,8 +50,8 @@ if __name__ == '__main__':
 
     if path := args.path:
         print("Translating...")
-        if not args.update and path_exists:
-            translations.load()
+        translations = Translations()
+        translations.load()
 
         translated_data = translations.translated_data
         translator = Translator(translated_data, path)
