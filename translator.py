@@ -1,5 +1,7 @@
 import re
 
+import unidecode
+
 
 class Translator():
     def __init__(self, translated_data: dict, path: str):
@@ -19,7 +21,9 @@ class Translator():
             return input_file.read()
 
     def _translate(self, content: str):
-        pattern = re.compile('|'.join(r'\b' + key + r'\b' for key in self._translated_data.keys()), flags=re.IGNORECASE)
+        content = unidecode.unidecode(content)
+        pattern = re.compile(r'\b(?:' + '|'.join(re.escape(key)
+                             for key in self._translated_data.keys()) + r')\b', flags=re.IGNORECASE)
         return pattern.sub(lambda match: self._translated_data[match.group(0).title()], content)
 
     def _write_subtitles(self, path: str, content: str):
